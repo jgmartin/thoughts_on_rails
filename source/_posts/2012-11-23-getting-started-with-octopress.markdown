@@ -75,7 +75,7 @@ git commit -m 'first post'
 git push heroku master
 {% endcodeblock %}
 
-And that's all there is to it.  You can check out the [docs](http://octopress.org/docs/) to learn more.
+And that's all there is to it.  You can read the [docs](http://octopress.org/docs/) to learn more.  You can also check out the complete source for this blog on [Github](https://github.com/jmartin2683/thoughts_on_rails).
 
 
 
