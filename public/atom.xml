@@ -4,13 +4,143 @@
   <title><![CDATA[thoughts_on_rails]]></title>
   <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
   <link href="http://www.thoughtsonrails.com/"/>
-  <updated>2012-11-22T23:57:33-05:00</updated>
+  <updated>2012-11-23T01:20:04-05:00</updated>
   <id>http://www.thoughtsonrails.com/</id>
   <author>
-    <name><![CDATA[james martin]]></name>
+    <name><![CDATA[James Martin]]></name>
     <email><![CDATA[james@thoughtsonrails.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[getting started with octopress]]></title>
+    <link href="http://www.thoughtsonrails.com/getting-started-with-octopress/"/>
+    <updated>2012-11-23T00:05:00-05:00</updated>
+    <id>http://www.thoughtsonrails.com/getting-started-with-octopress</id>
+    <content type="html"><![CDATA[<p>Hello!  Welcome to my blog, thoughts_on_rails.  I plan to put all sorts of useful stuff here, but we have to start somewhere.  Where better than the blog itself?  So, here&#8217;s my basic guide to setting up a blog just like this one.</p>
+
+<p>This blog uses a really cool little gem called <a href="http://www.octopress.org/">Octopress</a> created by <a href="http://brandonmathis.com/">Brandon Mathis</a>.  It&#8217;s written in Ruby, based on <a href="http://github.com/mojombo/jekyll">Jekyll</a>, and has absolutely nothing at all to do with Rails.  I chose to use Octopress for this blog because of the git-based workflow and easy setup on Heroku.  Here are the basic steps to get up and running, assuming you have a working install of Ruby 1.9.3.</p>
+
+<!--more-->
+
+
+<ul>
+<li>Clone the project from Github</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone git://github.com/imathis/octopress.git octopress</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Install bundler (if you don&#8217;t already have it) and bundle</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install bundler
+</span><span class='line'>bundle install</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Install the default theme</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake install</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Deploy the skeleton app to Heroku</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install heroku
+</span><span class='line'>heroku create
+</span><span class='line'>rake generate
+</span><span class='line'>git add .
+</span><span class='line'>git commit -m 'initial commit'
+</span><span class='line'>git push heroku master
+</span><span class='line'>heroku apps:rename your-new-name --app original-app-name</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will create the app on Heroku and push up the skeleton you&#8217;ve generated.  The last command is optional and will rename the app to something more memorable than the Heroku default.</p>
+
+<ul>
+<li>Set up the basics in _config.yml</li>
+</ul>
+
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://www.thoughtsonrails.com</span>
+</span><span class='line'><span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">thoughts_on_rails</span>
+</span><span class='line'><span class="l-Scalar-Plain">subtitle</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">a blog about rails and what not</span>
+</span><span class='line'><span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">James Martin</span>
+</span><span class='line'><span class="l-Scalar-Plain">simple_search</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://google.com/search</span>
+</span><span class='line'><span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">a blog about ruby, rails, and everything that comes with them</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Make some changes to the templates</li>
+</ul>
+
+
+<p>The templates are pretty self-explanatory, and can be found in the &#8216;source/<em>layouts&#8217; &amp; &#8216;source/</em>includes&#8217; directories.  Sass styles are located in the &#8216;sass&#8217; directory.</p>
+
+<ul>
+<li>Check out the results locally</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake preview</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The blog will be hosted locally on port 4000.</p>
+
+<ul>
+<li>Create a new post</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post['hello world']</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will create a file called &#8216;YYYY-MM-DD-hello-world.markdown&#8217; in &#8216;source/_posts&#8217;.  This is where you will create the content of the post itself.  The posts are (by default) written in Markdown format.  In case your not familiar, here are <a href="http://daringfireball.net/projects/markdown/basics">the basics</a>.</p>
+
+<ul>
+<li>Commit everything and push it back up</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
+</span><span class='line'>git commit -m 'first post'
+</span><span class='line'>git push heroku master</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And that&#8217;s all there is to it.  You can check out the <a href="http://octopress.org/docs/">docs</a> to learn more.</p>
+]]></content>
+  </entry>
   
 </feed>
