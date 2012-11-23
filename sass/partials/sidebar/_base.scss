@@ -78,7 +78,6 @@ aside.sidebar {
       @include border-bottom-right-radius(.3em);
       text-align: center;
       background: $main-bg $noise-bg;
-      border-top: 1px solid $sidebar-border;
       border-bottom: 1px solid $sidebar-border;
       border-right: 1px solid $sidebar-border;
       content: "\00BB";
