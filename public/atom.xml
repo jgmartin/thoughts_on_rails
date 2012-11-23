@@ -4,7 +4,7 @@
   <title><![CDATA[thoughts_on_rails]]></title>
   <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
   <link href="http://www.thoughtsonrails.com/"/>
-  <updated>2012-11-23T01:32:38-05:00</updated>
+  <updated>2012-11-23T01:52:43-05:00</updated>
   <id>http://www.thoughtsonrails.com/</id>
   <author>
     <name><![CDATA[James Martin]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.thoughtsonrails.com/getting-started-with-octopress/"/>
     <updated>2012-11-23T00:05:00-05:00</updated>
     <id>http://www.thoughtsonrails.com/getting-started-with-octopress</id>
-    <content type="html"><![CDATA[<p>Hello!  Welcome to my blog, thoughts_on_rails.  I plan to put all sorts of useful stuff here, but we have to start somewhere.  Where better than the blog itself?  So, here&#8217;s my basic guide to setting up a blog just like this one.</p>
+    <content type="html"><![CDATA[<p>Welcome to my blog, thoughts_on_rails.  I plan to put all sorts of useful stuff here, but we have to start somewhere.  Where better than the blog itself?  So, here&#8217;s my basic guide to setting up a blog just like this one.</p>
 
 <p>This blog uses a really cool little gem called <a href="http://www.octopress.org/">Octopress</a> created by <a href="http://brandonmathis.com/">Brandon Mathis</a>.  It&#8217;s written in Ruby, based on <a href="http://github.com/mojombo/jekyll">Jekyll</a>, and has absolutely nothing at all to do with Rails.  I chose to use Octopress for this blog because of the git-based workflow and easy setup on Heroku.  Here are the basic steps to get up and running, assuming you have a working install of Ruby 1.9.3.</p>
 

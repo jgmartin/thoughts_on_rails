@@ -6,7 +6,7 @@ comments: true
 categories: 
 ---
 
-Hello!  Welcome to my blog, thoughts_on_rails.  I plan to put all sorts of useful stuff here, but we have to start somewhere.  Where better than the blog itself?  So, here's my basic guide to setting up a blog just like this one.
+Welcome to my blog, thoughts_on_rails.  I plan to put all sorts of useful stuff here, but we have to start somewhere.  Where better than the blog itself?  So, here's my basic guide to setting up a blog just like this one.
 
 This blog uses a really cool little gem called [Octopress](http://www.octopress.org/) created by [Brandon Mathis](http://brandonmathis.com/).  It's written in Ruby, based on [Jekyll](http://github.com/mojombo/jekyll), and has absolutely nothing at all to do with Rails.  I chose to use Octopress for this blog because of the git-based workflow and easy setup on Heroku.  Here are the basic steps to get up and running, assuming you have a working install of Ruby 1.9.3.
 
