@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://yoursite.com/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2012-11-22T23:37:05-05:00</updated>
-  <id>http://yoursite.com/</id>
+  <title><![CDATA[thoughts_on_rails]]></title>
+  <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
+  <link href="http://www.thoughtsonrails.com/"/>
+  <updated>2012-11-22T23:57:33-05:00</updated>
+  <id>http://www.thoughtsonrails.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
-    
+    <name><![CDATA[james martin]]></name>
+    <email><![CDATA[james@thoughtsonrails.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
