@@ -1,24 +1,108 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[thoughts_on_rails]]></title>
-  <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
-  <link href="http://www.thoughtsonrails.com/"/>
-  <updated>2012-11-24T00:28:37-05:00</updated>
-  <id>http://www.thoughtsonrails.com/</id>
-  <author>
-    <name><![CDATA[James Martin]]></name>
-    <email><![CDATA[james@thoughtsonrails.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>devise and omniauth - thoughts_on_rails</title>
+  <meta name="author" content="James Martin">
 
   
-  <entry>
-    <title type="html"><![CDATA[devise and omniauth]]></title>
-    <link href="http://www.thoughtsonrails.com/devise-and-omniauth/"/>
-    <updated>2012-11-23T21:36:00-05:00</updated>
-    <id>http://www.thoughtsonrails.com/devise-and-omniauth</id>
-    <content type="html"><![CDATA[<p>One of the great things about <a href="https://github.com/plataformatec/devise">Devise</a> is how easy it is to add <a href="https://github.com/intridea/omniauth">Omniauth</a> support.  Omniauth is a library that standardizes authentication for a wide variety of services.  Services are supported via strategies, which are implemented as Rack middleware and distributed as gems.</p>
+  <meta name="description" content="One of the great things about Devise is how easy it is to add Omniauth support. Omniauth is a library that standardizes authentication for a wide &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.thoughtsonrails.com/devise-and-omniauth/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="thoughts_on_rails" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36531468-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">thoughts_on_rails</a></h1>
+  
+    <h2>a blog about rails and what not</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:www.thoughtsonrails.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Devise and Omniauth</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-23T21:36:00-05:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>One of the great things about <a href="https://github.com/plataformatec/devise">Devise</a> is how easy it is to add <a href="https://github.com/intridea/omniauth">Omniauth</a> support.  Omniauth is a library that standardizes authentication for a wide variety of services.  Services are supported via strategies, which are implemented as Rack middleware and distributed as gems.</p>
 
 <p>You&#8217;ll need to have Devise set up with a User model in order to begin.  You can find instructions <a href="https://github.com/plataformatec/devise#getting-started">here</a> if necessary.  You&#8217;re also going to need to get signed up with whatever provider you choose to use.  Once you&#8217;re registered and have your credentials, you can actually get to work.</p>
 
@@ -211,137 +295,197 @@
 <p>That&#8217;s all there is to it.  The first time you click on the link you will be redirected to the provider to authenticate, and a new User database record will be created during the callback.  For subsequent logins, the user is just retrieved from the database.</p>
 
 <p>One thing to watch out for is the callback URL specified in the provider&#8217;s application configuration.  You may have to set this to &#8216;http://localhost:3000&#8217; for development purposes.  For Github, this setting is located on the account management page under &#8216;applications&#8217;.</p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[getting started with octopress]]></title>
-    <link href="http://www.thoughtsonrails.com/getting-started-with-octopress/"/>
-    <updated>2012-11-23T00:05:00-05:00</updated>
-    <id>http://www.thoughtsonrails.com/getting-started-with-octopress</id>
-    <content type="html"><![CDATA[<p>Welcome to my blog, thoughts_on_rails.  I plan to put all sorts of useful stuff here, but we have to start somewhere.  Where better than the blog itself?  So, here&#8217;s my basic guide to setting up a blog just like this one.</p>
 
-<p>This blog uses a really cool little gem called <a href="http://www.octopress.org/">Octopress</a> created by <a href="http://brandonmathis.com/">Brandon Mathis</a>.  It&#8217;s written in Ruby, based on <a href="http://github.com/mojombo/jekyll">Jekyll</a>, and has absolutely nothing at all to do with Rails.  I chose to use Octopress for this blog because of the git-based workflow and easy setup on Heroku.  Here are the basic steps to get up and running, assuming you have a working install of Ruby 1.9.3.</p>
+<span class="byline author vcard">Posted by <span class="fn">James Martin</span></span>
 
-<!--more-->
+      
 
 
-<ul>
-<li>Clone the project from Github</li>
-</ul>
 
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone git://github.com/imathis/octopress.git octopress</span></code></pre></td></tr></table></div></figure>
 
 
-<ul>
-<li>Install bundler (if you don&#8217;t already have it) and bundle</li>
-</ul>
 
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install bundler
-</span><span class='line'>bundle install</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Install the default theme</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake install</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Deploy the skeleton app to Heroku</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install heroku
-</span><span class='line'>heroku create
-</span><span class='line'>rake generate
-</span><span class='line'>git add .
-</span><span class='line'>git commit -m 'initial commit'
-</span><span class='line'>git push heroku master
-</span><span class='line'>heroku apps:rename your-new-name --app original-app-name</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This will create the app on Heroku and push up the skeleton you&#8217;ve generated.  The last command is optional and will rename the app to something more memorable than the Heroku default.</p>
-
-<ul>
-<li>Set up the basics in _config.yml</li>
-</ul>
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://www.thoughtsonrails.com</span>
-</span><span class='line'><span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">thoughts_on_rails</span>
-</span><span class='line'><span class="l-Scalar-Plain">subtitle</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">a blog about rails and what not</span>
-</span><span class='line'><span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">James Martin</span>
-</span><span class='line'><span class="l-Scalar-Plain">simple_search</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://google.com/search</span>
-</span><span class='line'><span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">a blog about ruby, rails, and everything that comes with them</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Make some changes to the templates</li>
-</ul>
-
-
-<p>The templates are pretty self-explanatory, and can be found in the &#8216;source/<em>layouts&#8217; &amp; &#8216;source/</em>includes&#8217; directories.  Sass styles are located in the &#8216;sass&#8217; directory.</p>
-
-<ul>
-<li>Check out the results locally</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake preview</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The blog will be hosted locally on port 4000.</p>
-
-<ul>
-<li>Create a new post</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post['hello world']</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This will create a file called &#8216;YYYY-MM-DD-hello-world.markdown&#8217; in &#8216;source/_posts&#8217;.  This is where you will create the content of the post itself.  The posts are (by default) written in Markdown format.  In case your not familiar, here are <a href="http://daringfireball.net/projects/markdown/basics">the basics</a>.</p>
-
-<ul>
-<li>Commit everything and push it back up</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
-</span><span class='line'>git commit -m 'first post'
-</span><span class='line'>git push heroku master</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And that&#8217;s all there is to it.  You can read the <a href="http://octopress.org/docs/">docs</a> to learn more.  You can also check out the complete source for this blog on <a href="https://github.com/jmartin2683/thoughts_on_rails">Github</a>.</p>
-]]></content>
-  </entry>
   
-</feed>
+
+
+<time datetime="2012-11-23T21:36:00-05:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.thoughtsonrails.com/devise-and-omniauth/" data-via="xjamesm" data-counturl="http://www.thoughtsonrails.com/devise-and-omniauth/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/getting-started-with-octopress/" title="Previous Post: getting started with octopress">&laquo; getting started with octopress</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/devise-and-omniauth/">devise and omniauth</a>
+      </li>
+    
+      <li class="post">
+        <a href="/getting-started-with-octopress/">getting started with octopress</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/jmartin2683">@jmartin2683</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'jmartin2683',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("xjamesm", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/xjamesm" class="twitter-follow-button" data-show-count="false">Follow @xjamesm</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - James Martin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thoughtsonrails';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://www.thoughtsonrails.com/devise-and-omniauth/';
+        var disqus_url = 'http://www.thoughtsonrails.com/devise-and-omniauth/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
