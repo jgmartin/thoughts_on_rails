@@ -57,6 +57,9 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.ht
 #   3rd Party Settings    #
 # ----------------------- #
 
+# Amazon S3 Images
+aws_bucket: thoughts_on_rails
+
 # Github repositories
 github_user: jmartin2683
 github_repo_count: 0
