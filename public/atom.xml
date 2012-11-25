@@ -4,7 +4,7 @@
   <title><![CDATA[thoughts_on_rails]]></title>
   <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
   <link href="http://www.thoughtsonrails.com/"/>
-  <updated>2012-11-25T13:27:13-05:00</updated>
+  <updated>2012-11-25T13:32:13-05:00</updated>
   <id>http://www.thoughtsonrails.com/</id>
   <author>
     <name><![CDATA[James Martin]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[verify technorati]]></title>
+    <link href="http://www.thoughtsonrails.com/verify-technorati/"/>
+    <updated>2012-11-25T13:31:00-05:00</updated>
+    <id>http://www.thoughtsonrails.com/verify-technorati</id>
+    <content type="html"><![CDATA[<p>EEJ66BZPP2XH</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[devise and omniauth]]></title>
