@@ -10,9 +10,8 @@ module Jekyll
     end
 
     def render(context)
-      output = super
       if @file_name && @bucket_name
-        image_tag = "<img src='https://s3.amazonaws.com/#{@bucket_name}/#{@file_name}'>"
+        "<img src='https://s3.amazonaws.com/#{@bucket_name}/#{@file_name}'>"
       else
         "Error processing input, expected syntax: {% s3_image file_name [bucket:bucket_name] %}"
       end

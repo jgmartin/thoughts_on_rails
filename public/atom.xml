@@ -4,7 +4,7 @@
   <title><![CDATA[thoughts_on_rails]]></title>
   <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
   <link href="http://www.thoughtsonrails.com/"/>
-  <updated>2012-11-25T13:37:42-05:00</updated>
+  <updated>2012-11-26T11:34:32-05:00</updated>
   <id>http://www.thoughtsonrails.com/</id>
   <author>
     <name><![CDATA[James Martin]]></name>
@@ -12,6 +12,141 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[creating plugins for octopress]]></title>
+    <link href="http://www.thoughtsonrails.com/creating-plugins-for-octopress/"/>
+    <updated>2012-11-26T10:32:00-05:00</updated>
+    <id>http://www.thoughtsonrails.com/creating-plugins-for-octopress</id>
+    <content type="html"><![CDATA[<p>Octopress comes with quite a few plugins out of the box, covering everything from categories to video tags.  Plugins are easy to create and can be used to extend Octopress in a variety of ways.  Today we&#8217;ll learn how to extend the Liquid templating system with new tags of our own.</p>
+
+<!--more-->
+
+
+<p>For this example we will be creating a tag that allows users to easily embed images hosted on Amazon&#8217;s S3 service.  To begin, create a plain Ruby file called &#8216;s3_image_tag.rb&#8217;.</p>
+
+<ul>
+<li>Define a new Liquid::Tag subclass within the Jekyll module</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>s3_image_tag.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">module</span> <span class="nn">Jekyll</span>
+</span><span class='line'>  <span class="k">class</span> <span class="nc">S3ImageTag</span> <span class="o">&lt;</span> <span class="no">Liquid</span><span class="o">::</span><span class="no">Tag</span>
+</span><span class='line'>    <span class="c1"># our code will go here</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>All Liquid tags are defined as classes inheriting from Liquid::Tag.  Liquid expects this class to respond to a #render message, which we will implement shortly.</p>
+
+<ul>
+<li>Grab parameters passed in to the tag</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>s3_image_tag.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">tag_name</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">super</span>
+</span><span class='line'>  <span class="vi">@text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span>
+</span><span class='line'>  <span class="vi">@text</span> <span class="o">=~</span> <span class="sr">/(\w+\.\w+)(\sbucket:)?(\w*)/i</span>
+</span><span class='line'>  <span class="vi">@file_name</span> <span class="o">=</span> <span class="vg">$1</span>
+</span><span class='line'>  <span class="vi">@bucket_name</span> <span class="o">=</span> <span class="vg">$3</span><span class="o">.</span><span class="n">empty?</span> <span class="p">?</span> <span class="no">Jekyll</span><span class="o">.</span><span class="n">configuration</span><span class="p">({})</span><span class="o">[</span><span class="s1">&#39;aws_bucket&#39;</span><span class="o">]</span> <span class="p">:</span> <span class="vg">$3</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice that Liquid will call our initialize method with three parameters: the tag name, the text within the tag itself, and a token.  The part we care about is the text.</p>
+
+<p>First we call super to allow our superclass to perform any necessary initialization.  Next, we grab the passed in text as an instance variable and strip it of leading/trailing whitespace.  We then match the stripped text against a regex to capture the pieces we need.  In this case, we need the file name and the optional bucket parameter.  If the bucket parameter is not supplied we pull a default from the Jekyll configuration loaded from &#8216;_config.yml&#8217;.</p>
+
+<ul>
+<li>Define the render method</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>s3_image_tag.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="vi">@file_name</span> <span class="o">&amp;&amp;</span> <span class="vi">@bucket_name</span>
+</span><span class='line'>    <span class="s2">&quot;&lt;img src=&#39;https://s3.amazonaws.com/</span><span class="si">#{</span><span class="vi">@bucket_name</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="vi">@file_name</span><span class="si">}</span><span class="s2">&#39;&gt;&quot;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="s2">&quot;Error processing input.&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here we just check to make sure we have a @file_name and @bucket_name, and if so construct the HTML tag for the desired image.  If either parameter is missing, we return a simple error message.</p>
+
+<ul>
+<li>Register the new tag</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>s3_image_tag.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="no">Liquid</span><span class="o">::</span><span class="no">Template</span><span class="o">.</span><span class="n">register_tag</span><span class="p">(</span><span class="s1">&#39;s3_image&#39;</span><span class="p">,</span> <span class="no">Jekyll</span><span class="o">::</span><span class="no">S3ImageTag</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We send the .register_tag message to Liquid::Template, passing in the name of our tag and the class which represents it.  The new tag is now ready to be used in our templates.</p>
+
+<ul>
+<li><p>Add s3_image_tag.rb to the &#8216;/plugins&#8217; directory in your blog project.  Octopress automatically loads all plugins defined within it&#8217;s &#8216;plugins&#8217; subdirectory.</p></li>
+<li><p>Define a default bucket in &#8216;_config.yml&#8217;</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span>_config.yml </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="c1"># ----------------------- #</span>
+</span><span class='line'><span class="c1">#   3rd Party Settings    #</span>
+</span><span class='line'><span class="c1"># ----------------------- #</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Amazon S3 Images</span>
+</span><span class='line'><span class="l-Scalar-Plain">aws_bucket</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">thoughts_on_rails</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Use the new tag in your templates</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>_posts/2012-11-27-foo.markdown  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>Here is an image:  {% s3_image foo.jpeg bucket:bar %}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can find the full example code on my <a href="http://github.com/jmartin2683/s3_image_tag">Github</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[devise and omniauth]]></title>
