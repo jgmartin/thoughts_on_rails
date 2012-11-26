@@ -4,7 +4,7 @@
   <title><![CDATA[thoughts_on_rails]]></title>
   <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
   <link href="http://www.thoughtsonrails.com/"/>
-  <updated>2012-11-26T11:34:32-05:00</updated>
+  <updated>2012-11-26T11:38:19-05:00</updated>
   <id>http://www.thoughtsonrails.com/</id>
   <author>
     <name><![CDATA[James Martin]]></name>
@@ -74,7 +74,7 @@
 <p>First we call super to allow our superclass to perform any necessary initialization.  Next, we grab the passed in text as an instance variable and strip it of leading/trailing whitespace.  We then match the stripped text against a regex to capture the pieces we need.  In this case, we need the file name and the optional bucket parameter.  If the bucket parameter is not supplied we pull a default from the Jekyll configuration loaded from &#8216;_config.yml&#8217;.</p>
 
 <ul>
-<li>Define the render method</li>
+<li>Define the #render method</li>
 </ul>
 
 

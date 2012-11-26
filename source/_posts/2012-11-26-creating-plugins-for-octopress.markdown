@@ -36,7 +36,7 @@ Notice that Liquid will call our initialize method with three parameters: the ta
 
 First we call super to allow our superclass to perform any necessary initialization.  Next, we grab the passed in text as an instance variable and strip it of leading/trailing whitespace.  We then match the stripped text against a regex to capture the pieces we need.  In this case, we need the file name and the optional bucket parameter.  If the bucket parameter is not supplied we pull a default from the Jekyll configuration loaded from '_config.yml'.
 
-- Define the render method
+- Define the #render method
 {% codeblock s3_image_tag.rb %}
 def render(context)
   if @file_name && @bucket_name
