@@ -4,7 +4,7 @@
   <title><![CDATA[thoughts_on_rails]]></title>
   <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
   <link href="http://www.thoughtsonrails.com/"/>
-  <updated>2012-12-01T11:54:41-05:00</updated>
+  <updated>2012-12-01T12:56:57-05:00</updated>
   <id>http://www.thoughtsonrails.com/</id>
   <author>
     <name><![CDATA[James Martin]]></name>
@@ -12,6 +12,98 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[polymorphic associations with active record]]></title>
+    <link href="http://www.thoughtsonrails.com/polymorphic-associations-with-active-record/"/>
+    <updated>2012-12-01T12:01:00-05:00</updated>
+    <id>http://www.thoughtsonrails.com/polymorphic-associations-with-active-record</id>
+    <content type="html"><![CDATA[<p>Model associations are one of the things that every new Ruby on Rails developer must understand in order to effectively use the framework.  The concept behind these relationships is rather simple, and most people have little trouble grasping it once introduced.  One of the sticking points (for me, at least) was polymorphic associations, or associations where a single model can belong to multiple types of other models.</p>
+
+<!--more-->
+
+
+<p>Like just about everything else in the Ruby on Rails world, there is a &#8216;Rails way&#8217; to do polymorphic associations.  This involves leveraging the support that is built in to Rails&#8217; standard ORM, Active Record.  You set up a polymorphic association in very much the same way that you would a typical has_many.</p>
+
+<figure class='code'><figcaption><span>app/models/comment.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Comment</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:commentable</span><span class="p">,</span> <span class="n">polymorphic</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'><span class="c1">#...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>app/models/post.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="n">as</span><span class="p">:</span> <span class="ss">:commentable</span>
+</span><span class='line'><span class="c1">#...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>app/models/profile.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Profile</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="n">as</span><span class="p">:</span> <span class="ss">:commentable</span>
+</span><span class='line'><span class="c1">#...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>migration  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CreateComments</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">change</span>
+</span><span class='line'>    <span class="n">create_table</span> <span class="ss">:comments</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">t</span><span class="o">.</span><span class="n">references</span> <span class="ss">:commentable</span><span class="p">,</span> <span class="n">polymorphic</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>      <span class="c1">#...</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here you can see that all we&#8217;re really doing is passing a couple of parameters to the :has_many and :belongs_to methods.  The migration will generate two columns on the Comments table, &#8216;commentable_id&#8217; and &#8216;commentable_type&#8217;.  Behind the scenes, Active Record will wire up all of the helper methods that you&#8217;re used to using with normal associations.</p>
+
+<figure class='code'><figcaption><span>irb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">post</span><span class="o">.</span><span class="n">comments</span>  <span class="c1"># get all comments for a post</span>
+</span><span class='line'><span class="n">profile</span><span class="o">.</span><span class="n">comments</span> <span class="c1"># get all comments for a profile</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">post</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:post</span><span class="o">]</span><span class="p">)</span> <span class="c1"># create a new comment for a post</span>
+</span><span class='line'><span class="n">profile</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:post</span><span class="o">]</span><span class="p">)</span> <span class="c1"># create a new comment for a profile</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">comment</span><span class="o">.</span><span class="n">commentable</span> <span class="c1"># get the parent of a comment</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And there you have it, both posts and profiles can have their own comments.  The obvious limitation here is that, since we&#8217;re only setting a single foreign key and type, a comment can only belong to one other object at a time.  This may be the desired functionality for some use cases.  Sometimes, however, you&#8217;ll want to be able to associate a single model with multiple other models of different types at the same time.  We&#8217;ll look at how to handle something like that in a future post.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[creating plugins for octopress]]></title>
