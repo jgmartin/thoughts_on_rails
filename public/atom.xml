@@ -4,7 +4,7 @@
   <title><![CDATA[thoughts_on_rails]]></title>
   <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
   <link href="http://www.thoughtsonrails.com/"/>
-  <updated>2012-12-01T12:56:57-05:00</updated>
+  <updated>2012-12-02T15:41:28-05:00</updated>
   <id>http://www.thoughtsonrails.com/</id>
   <author>
     <name><![CDATA[James Martin]]></name>
@@ -12,6 +12,54 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[apps for rails developers]]></title>
+    <link href="http://www.thoughtsonrails.com/apps-for-rails-developers/"/>
+    <updated>2012-12-02T13:54:00-05:00</updated>
+    <id>http://www.thoughtsonrails.com/apps-for-rails-developers</id>
+    <content type="html"><![CDATA[<p>The App Store is full of useful mobile apps for developers&#8230; of mobile apps.  Though Rails developers have a bit less to choose from, there are some great apps out there for us as well.  Here are a few that I&#8217;m using right now.</p>
+
+<!--more-->
+
+
+<h3><a href="https://itunes.apple.com/us/app/nezumi-for-heroku/id346715875?mt=8">Nezumi</a></h3>
+
+<p><img class="left" src="https://s3.amazonaws.com/thoughts_on_rails/nezumi_iphone.jpeg" width="240" height="180" title="Nezumi" ></p>
+
+<p>Most Rails developers love Heroku, and for good reason.  Almost every Rails app I&#8217;ve ever worked on has been hosted, at least partially, on the platform.  When it comes to Heroku management apps, Nezumi is by far the best currently available.</p>
+
+<p>With Nezumi you can read logs, set environment variables, scale dynos, monitor processes, and more.  You even have access to the console right inside of the app, and it&#8217;s useable.  This feature alone makes it the most useful app on my phone for development.</p>
+
+<p>If you have apps on Heroku, and you own an iPhone, you should probably have Nezumi.  The only down side is the price: $9.99.  It&#8217;s a bit more than most people expect to pay for mobile apps these days, but it&#8217;s worth every penny.</p>
+
+<hr />
+
+<h3><a href="https://itunes.apple.com/us/app/pivotal-tracker/id444623375?mt=8">Pivotal Tracker</a></h3>
+
+<p><img class="left" src="https://s3.amazonaws.com/thoughts_on_rails/pivotal_tracker_iphone.jpeg" width="240" height="180" title="Pivotal Tracker" ></p>
+
+<p>We use Pivotal Tracker at work, and I use it on almost all of my personal projects.  The app allows you to do pretty much everything you can do with the web application.  I find it most useful for putting in new stories as I think of them, usually when I&#8217;m away from my laptop.</p>
+
+<p>The iPhone and iPad versions offer similar functionality, though the iPad does benefit from the extra screen real estate.  Whereas with the iPhone app each panel is inside of it&#8217;s own tab, the iPad version can display multiple tabs at once.</p>
+
+<p>Though I wouldn&#8217;t consider it a critical part of my every day workflow, I definitely recommend picking this one up.  It&#8217;s free on the App Store, and can be useful when you can&#8217;t be near a computer.</p>
+
+<hr />
+
+<h3><a href="https://itunes.apple.com/us/app/stackwise-for-iphone-stack/id556299075?mt=8">Stackwise</a></h3>
+
+<p><img class="left" src="https://s3.amazonaws.com/thoughts_on_rails/stackwise.jpeg" width="240" height="180" title="Stackwise" ></p>
+
+<p>Stack Overflow is one of the best resources out there for developers.  There are quite a few apps that attempt to make browsing the site&#8217;s content easier on a phone.  If I had to pick one, it&#8217;d be Stackwise.</p>
+
+<p>Stackwise offers content from all 177 Stack Exchange sites.  Stack Overflow, Super User, Server Fault, all of them.  It doesn&#8217;t offer many advanced features, but it does excel in one area: finding answers.</p>
+
+<p>You&#8217;re given the option of searching by tag or title keywords.  Finding answers is quick and easy, though the displayed code is often wrapped and distorted, making it hard to read.  Flipping over in to landscape mode often solves this problem.</p>
+
+<p>At $3.99, I find this app worth picking up if you&#8217;re someone who spends a lot of time browsing Stack Exchange&#8217;s sites on your phone and you want a better mobile interface.  For anyone else, it probably isn&#8217;t worth the money.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[polymorphic associations with active record]]></title>
