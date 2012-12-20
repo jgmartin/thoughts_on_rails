@@ -178,8 +178,8 @@
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">post</span><span class="o">.</span><span class="n">comments</span>  <span class="c1"># get all comments for a post</span>
 </span><span class='line'><span class="n">profile</span><span class="o">.</span><span class="n">comments</span> <span class="c1"># get all comments for a profile</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">post</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:post</span><span class="o">]</span><span class="p">)</span> <span class="c1"># create a new comment for a post</span>
-</span><span class='line'><span class="n">profile</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:post</span><span class="o">]</span><span class="p">)</span> <span class="c1"># create a new comment for a profile</span>
+</span><span class='line'><span class="n">post</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:comment</span><span class="o">]</span><span class="p">)</span> <span class="c1"># create a new comment for a post</span>
+</span><span class='line'><span class="n">profile</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:comment</span><span class="o">]</span><span class="p">)</span> <span class="c1"># create a new comment for a profile</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">comment</span><span class="o">.</span><span class="n">commentable</span> <span class="c1"># get the parent of a comment</span>
 </span></code></pre></td></tr></table></div></figure>

@@ -47,8 +47,8 @@ Here you can see that all we're really doing is passing a couple of parameters t
 post.comments  # get all comments for a post
 profile.comments # get all comments for a profile
 
-post.comments.create(params[:post]) # create a new comment for a post
-profile.comments.create(params[:post]) # create a new comment for a profile
+post.comments.create(params[:comment]) # create a new comment for a post
+profile.comments.create(params[:comment]) # create a new comment for a profile
 
 comment.commentable # get the parent of a comment
 {% endcodeblock %}
