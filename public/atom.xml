@@ -4,7 +4,7 @@
   <title><![CDATA[thoughts_on_rails]]></title>
   <link href="http://www.thoughtsonrails.com/atom.xml" rel="self"/>
   <link href="http://www.thoughtsonrails.com/"/>
-  <updated>2012-12-20T13:33:28-05:00</updated>
+  <updated>2012-12-24T20:43:11-05:00</updated>
   <id>http://www.thoughtsonrails.com/</id>
   <author>
     <name><![CDATA[James Martin]]></name>
@@ -12,6 +12,114 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[giving rails some context]]></title>
+    <link href="http://www.thoughtsonrails.com/giving-rails-some-context/"/>
+    <updated>2012-12-24T17:59:00-05:00</updated>
+    <id>http://www.thoughtsonrails.com/giving-rails-some-context</id>
+    <content type="html"><![CDATA[<p>There has been quite a bit of talk lately around the idea of model decomposition and contexts.  In this post, we&#8217;ll create a gem that allows you to decompose models into various contexts, and apply only the functionality you need, when you need it.</p>
+
+<!--more-->
+
+
+<p>It&#8217;s becoming clear to more and more Ruby developers that we need a method of breaking large models into smaller, more manageable chunks of code.
+Rails 4 suggests <a href="https://gist.github.com/1014971">concerns</a> as one way to deal with the problem.  Personally, I like the idea of using contexts to bundle
+up bits of similar code, for both the modularity and to keep models clean.</p>
+
+<p>We&#8217;re going to write a gem that will allow us to create modules, or &#8216;contexts&#8217;, that can be applied selectively when creating new instances of ActiveRecord models.
+What we&#8217;re going for is something like this:</p>
+
+<figure class='code'><figcaption><span>app/models/post.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">has_context</span> <span class="ss">:buyer</span><span class="p">,</span> <span class="n">with</span><span class="p">:</span> <span class="no">Buyer</span>
+</span><span class='line'>  <span class="n">has_context</span> <span class="ss">:seller</span><span class="p">,</span> <span class="n">with</span><span class="p">:</span> <span class="o">[</span><span class="no">Seller</span><span class="p">,</span> <span class="no">Payable</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>app/contexts/buyer.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">module</span> <span class="nn">Buyer</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">buy_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1"># buy an item</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="c1">#...</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>app/contexts/seller.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">module</span> <span class="nn">Seller</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">inventory</span>
+</span><span class='line'>    <span class="c1"># list items</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="c1">#...</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>app/contexts/payable.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">module</span> <span class="nn">Payable</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">mark_paid</span><span class="p">(</span><span class="n">invoice</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1"># mark as paid</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="c1">#...</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>console  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">user</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:buy_item</span><span class="p">)</span>       <span class="c1">#=&gt; false</span>
+</span><span class='line'><span class="n">buyer</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">with_context</span><span class="p">(</span><span class="ss">:buyer</span><span class="p">)</span>
+</span><span class='line'><span class="n">buyer</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:buy_item</span><span class="p">)</span>      <span class="c1">#=&gt; true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The first thing we will need to do is generate a new skeleton gem with Bundler.  Give it whatever name you like.</p>
+
+<figure class='code'><figcaption><span>terminal </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle gem contextual</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[apps for rails developers]]></title>

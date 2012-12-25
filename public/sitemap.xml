@@ -2,30 +2,34 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://www.thoughtsonrails.com/getting-started-with-octopress/</loc>
-        <lastmod>2012-11-23T15:56:03-05:00</lastmod>
+        <lastmod>2012-12-24T10:13:39-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.thoughtsonrails.com/devise-and-omniauth/</loc>
-        <lastmod>2012-11-25T12:47:11-05:00</lastmod>
+        <lastmod>2012-12-24T10:13:39-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.thoughtsonrails.com/creating-plugins-for-octopress/</loc>
-        <lastmod>2012-11-26T11:40:33-05:00</lastmod>
+        <lastmod>2012-12-24T10:13:39-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.thoughtsonrails.com/polymorphic-associations-with-active-record/</loc>
-        <lastmod>2012-12-20T13:33:02-05:00</lastmod>
+        <lastmod>2012-12-24T10:13:39-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.thoughtsonrails.com/apps-for-rails-developers/</loc>
-        <lastmod>2012-12-02T15:40:48-05:00</lastmod>
+        <lastmod>2012-12-24T10:13:39-05:00</lastmod>
     </url>
     <url>
-        <loc>http://www.thoughtsonrails.com/blog/archives/</loc>
-        <lastmod>2012-12-20T13:33:02-05:00</lastmod>
+        <loc>http://www.thoughtsonrails.com/giving-rails-some-context/</loc>
+        <lastmod>2012-12-24T20:43:10-05:00</lastmod>
     </url>
     <url>
         <loc>http://www.thoughtsonrails.com/</loc>
-        <lastmod>2012-12-20T13:33:02-05:00</lastmod>
+        <lastmod>2012-12-24T20:43:10-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.thoughtsonrails.com/blog/archives/</loc>
+        <lastmod>2012-12-24T20:43:10-05:00</lastmod>
     </url>
 </urlset>

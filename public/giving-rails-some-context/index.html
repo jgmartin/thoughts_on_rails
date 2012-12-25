@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>getting started with octopress - thoughts_on_rails</title>
+  <title>giving rails some context - thoughts_on_rails</title>
   <meta name="author" content="James Martin">
 
   
-  <meta name="description" content="Welcome to my blog, thoughts_on_rails. I plan to put all sorts of useful stuff here, but we have to start somewhere. Where better than the blog &hellip;">
+  <meta name="description" content="There has been quite a bit of talk lately around the idea of model decomposition and contexts. In this post, we&#8217;ll create a gem that allows you &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.thoughtsonrails.com/getting-started-with-octopress/">
+  <link rel="canonical" href="http://www.thoughtsonrails.com/giving-rails-some-context/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h2 class="entry-title">Getting Started With Octopress</h2>
+      <h2 class="entry-title">Giving Rails Some Context</h2>
     
     
       <p class="meta">
@@ -95,135 +95,113 @@
   
 
 
-<time datetime="2012-11-23T00:05:00-05:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2012</time>
+<time datetime="2012-12-24T17:59:00-05:00" pubdate data-updated="true">Dec 24<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Welcome to my blog, thoughts_on_rails.  I plan to put all sorts of useful stuff here, but we have to start somewhere.  Where better than the blog itself?  So, here&#8217;s my basic guide to setting up a blog just like this one.</p>
-
-<p>This blog uses a really cool little gem called <a href="http://www.octopress.org/">Octopress</a> created by <a href="http://brandonmathis.com/">Brandon Mathis</a>.  It&#8217;s written in Ruby, based on <a href="http://github.com/mojombo/jekyll">Jekyll</a>, and has absolutely nothing at all to do with Rails.  I chose to use Octopress for this blog because of the git-based workflow and easy setup on Heroku.  Here are the basic steps to get up and running, assuming you have a working install of Ruby 1.9.3.</p>
+<div class="entry-content"><p>There has been quite a bit of talk lately around the idea of model decomposition and contexts.  In this post, we&#8217;ll create a gem that allows you to decompose models into various contexts, and apply only the functionality you need, when you need it.</p>
 
 <!--more-->
 
 
-<ul>
-<li>Clone the project from Github</li>
-</ul>
+<p>It&#8217;s becoming clear to more and more Ruby developers that we need a method of breaking large models into smaller, more manageable chunks of code.
+Rails 4 suggests <a href="https://gist.github.com/1014971">concerns</a> as one way to deal with the problem.  Personally, I like the idea of using contexts to bundle
+up bits of similar code, for both the modularity and to keep models clean.</p>
 
+<p>We&#8217;re going to write a gem that will allow us to create modules, or &#8216;contexts&#8217;, that can be applied selectively when creating new instances of ActiveRecord models.
+What we&#8217;re going for is something like this:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone git://github.com/imathis/octopress.git octopress</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Install bundler (if you don&#8217;t already have it) and bundle</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install bundler
-</span><span class='line'>bundle install</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Install the default theme</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake install</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Deploy the skeleton app to Heroku</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>app/models/post.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install heroku
-</span><span class='line'>heroku create
-</span><span class='line'>rake generate
-</span><span class='line'>git add .
-</span><span class='line'>git commit -m 'initial commit'
-</span><span class='line'>git push heroku master
-</span><span class='line'>heroku apps:rename your-new-name --app original-app-name</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This will create the app on Heroku and push up the skeleton you&#8217;ve generated.  The last command is optional and will rename the app to something more memorable than the Heroku default.</p>
-
-<ul>
-<li>Set up the basics in _config.yml</li>
-</ul>
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://www.thoughtsonrails.com</span>
-</span><span class='line'><span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">thoughts_on_rails</span>
-</span><span class='line'><span class="l-Scalar-Plain">subtitle</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">a blog about rails and what not</span>
-</span><span class='line'><span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">James Martin</span>
-</span><span class='line'><span class="l-Scalar-Plain">simple_search</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://google.com/search</span>
-</span><span class='line'><span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">a blog about ruby, rails, and everything that comes with them</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+</span><span class='line'>  <span class="n">has_context</span> <span class="ss">:buyer</span><span class="p">,</span> <span class="n">with</span><span class="p">:</span> <span class="no">Buyer</span>
+</span><span class='line'>  <span class="n">has_context</span> <span class="ss">:seller</span><span class="p">,</span> <span class="n">with</span><span class="p">:</span> <span class="o">[</span><span class="no">Seller</span><span class="p">,</span> <span class="no">Payable</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<ul>
-<li>Make some changes to the templates</li>
-</ul>
 
 
-<p>The templates are pretty self-explanatory, and can be found in the &#8216;source/<em>layouts&#8217; &amp; &#8216;source/</em>includes&#8217; directories.  Sass styles are located in the &#8216;sass&#8217; directory.</p>
-
-<ul>
-<li>Check out the results locally</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake preview</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The blog will be hosted locally on port 4000.</p>
-
-<ul>
-<li>Create a new post</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake new_post['hello world']</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This will create a file called &#8216;YYYY-MM-DD-hello-world.markdown&#8217; in &#8216;source/_posts&#8217;.  This is where you will create the content of the post itself.  The posts are (by default) written in Markdown format.  In case your not familiar, here are <a href="http://daringfireball.net/projects/markdown/basics">the basics</a>.</p>
-
-<ul>
-<li>Commit everything and push it back up</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span>app/contexts/buyer.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git add .
-</span><span class='line'>git commit -m 'first post'
-</span><span class='line'>git push heroku master</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">module</span> <span class="nn">Buyer</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">buy_item</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1"># buy an item</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="c1">#...</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>And that&#8217;s all there is to it.  You can read the <a href="http://octopress.org/docs/">docs</a> to learn more.  You can also check out the complete source for this blog on <a href="https://github.com/jmartin2683/thoughts_on_rails">Github</a>.</p>
+
+
+<figure class='code'><figcaption><span>app/contexts/seller.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">module</span> <span class="nn">Seller</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">inventory</span>
+</span><span class='line'>    <span class="c1"># list items</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="c1">#...</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>app/contexts/payable.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">module</span> <span class="nn">Payable</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">mark_paid</span><span class="p">(</span><span class="n">invoice</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1"># mark as paid</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="c1">#...</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>console  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">user</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:buy_item</span><span class="p">)</span>       <span class="c1">#=&gt; false</span>
+</span><span class='line'><span class="n">buyer</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">with_context</span><span class="p">(</span><span class="ss">:buyer</span><span class="p">)</span>
+</span><span class='line'><span class="n">buyer</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:buy_item</span><span class="p">)</span>      <span class="c1">#=&gt; true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The first thing we will need to do is generate a new skeleton gem with Bundler.  Give it whatever name you like.</p>
+
+<figure class='code'><figcaption><span>terminal </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle gem contextual</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -246,7 +224,7 @@
   
 
 
-<time datetime="2012-11-23T00:05:00-05:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2012</time>
+<time datetime="2012-12-24T17:59:00-05:00" pubdate data-updated="true">Dec 24<span>th</span>, 2012</time>
       
 
 
@@ -254,7 +232,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.thoughtsonrails.com/getting-started-with-octopress/" data-via="xjamesm" data-counturl="http://www.thoughtsonrails.com/getting-started-with-octopress/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.thoughtsonrails.com/giving-rails-some-context/" data-via="xjamesm" data-counturl="http://www.thoughtsonrails.com/giving-rails-some-context/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -267,8 +245,8 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/apps-for-rails-developers/" title="Previous Post: apps for rails developers">&laquo; apps for rails developers</a>
       
-        <a class="basic-alignment right" href="/devise-and-omniauth/" title="Next Post: devise and omniauth">devise and omniauth &raquo;</a>
       
     </p>
   </footer>
@@ -380,8 +358,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://www.thoughtsonrails.com/getting-started-with-octopress/';
-        var disqus_url = 'http://www.thoughtsonrails.com/getting-started-with-octopress/';
+        var disqus_identifier = 'http://www.thoughtsonrails.com/giving-rails-some-context/';
+        var disqus_url = 'http://www.thoughtsonrails.com/giving-rails-some-context/';
         var disqus_script = 'embed.js';
       
     (function () {
