@@ -102,10 +102,10 @@ This has the effect of creating a :context property on this instance alone.
 
 The next couple of lines just grab the list of modules for the given context name and assigns the current context.  Then it's just a matter of looping over the modules and including them in the instance's eigenclass one at a time.
 
-So, we have everything working the way we want.  We can define a bunch of context modules, group and name them, and include them as necessary in new instances.  Of course this was just quickly thrown together for the purpose of demonstration, but the idea of decomposition and applying 'roles' or context to model instances is a powerful one.
+So, we have everything working the way we want.  We can define a bunch of context modules, group and name them, and include them as necessary in new instances.  Of course this was just quickly thrown together for the purpose of demonstration, but the idea of decomposition and applying 'roles' or contexts to model instances is a powerful one.
 We've been employing similar ideas at work for some time now and it has managed to keep our model code very concise and understandable.
 
-The only downside that I've noticed is negated by a decent text editor, and that is navigating the source.  Sometimes it can be a bit difficult to figure out just where a method is defined with all these modules everywhere, so a 'jump to definition' button is priceless.
+The only downside that I've noticed is negated by a decent text editor, and that is navigating the source.  Sometimes it can be a bit difficult to figure out just where a method is defined with all of these modules, so a 'jump to definition' button is priceless.
 
 You can check out the full source code on my [Github](https://github.com/jmartin2683/contextual), or try it out with 'gem install contextual_models'.
 
