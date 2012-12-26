@@ -120,8 +120,8 @@ What we&#8217;re going for is something like this:</p>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-</span><span class='line'>  <span class="n">has_context</span> <span class="ss">:buyer</span><span class="p">,</span> <span class="n">with</span><span class="p">:</span> <span class="no">Buyer</span>
-</span><span class='line'>  <span class="n">has_context</span> <span class="ss">:seller</span><span class="p">,</span> <span class="n">with</span><span class="p">:</span> <span class="o">[</span><span class="no">Seller</span><span class="p">,</span> <span class="no">Payable</span><span class="o">]</span>
+</span><span class='line'>  <span class="n">has_context</span> <span class="ss">:buyer</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="no">Buyer</span>
+</span><span class='line'>  <span class="n">has_context</span> <span class="ss">:seller</span><span class="p">,</span> <span class="n">using</span><span class="p">:</span> <span class="o">[</span><span class="no">Seller</span><span class="p">,</span> <span class="no">Payable</span><span class="o">]</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 

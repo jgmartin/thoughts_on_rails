@@ -19,8 +19,8 @@ What we're going for is something like this:
 
 {% codeblock app/models/post.rb %}
 class User < ActiveRecord::Base
-  has_context :buyer, with: Buyer
-  has_context :seller, with: [Seller, Payable]
+  has_context :buyer, using: Buyer
+  has_context :seller, using: [Seller, Payable]
 end
 {% endcodeblock %}
 
